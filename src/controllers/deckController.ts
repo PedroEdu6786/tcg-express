@@ -8,9 +8,7 @@ export const addDeck = async (req: Request, res: Response) => {
   const { name, userId, cards } = req.body
 
   if (cards.length === 0) {
-    res.status(400)
-
-    throw new Error('No cards on deck')
+    res.status(400).json({ message: 'No cards on deck' })
   } else {
     const deck = new Deck({
       name,
@@ -33,7 +31,7 @@ export const getDeckById = async (req: any, res: Response) => {
   if (deck) {
     res.json(deck)
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'Deck not found' })
     throw new Error('Deck not found')
   }
 }
@@ -47,7 +45,7 @@ export const getMyDecks = async (req: any, res: Response) => {
   if (decks) {
     res.status(200).json(decks)
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'Deck not found' })
     throw new Error('Deck not found')
   }
 }

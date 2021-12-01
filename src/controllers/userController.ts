@@ -18,7 +18,7 @@ export const authUser = async (req: Request, res: Response) => {
       token: generateToken(user._id),
     })
   } else {
-    res.status(401)
+    res.status(401).json({ message: 'Invalid email or password' })
     throw new Error('Invalid email or password')
   }
 }
@@ -32,7 +32,7 @@ export const registerUser = async (req: Request, res: Response) => {
   const userExists = await User.findOne({ email })
 
   if (userExists) {
-    res.status(400)
+    res.status(400).json({ message: 'User already exists' })
     throw new Error('User already exists')
   }
 
@@ -45,7 +45,7 @@ export const registerUser = async (req: Request, res: Response) => {
       email: user.email,
     })
   } else {
-    res.status(400)
+    res.status(400).json({ message: 'Invalid user data' })
     throw new Error('Invalid user data')
   }
 }
