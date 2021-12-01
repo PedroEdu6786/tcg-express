@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from "express"
+import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { User } from "../models/userModel"
-
+import { User } from '../models/userModel'
 
 const JWT_SECRET: string = process.env.JWT_SECRET!
 
@@ -21,13 +20,13 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
       next()
     } catch (err) {
       console.error(err)
-      res.status(401)
+      res.status(401).json({ message: 'Not authorized, token failed' })
       throw new Error('Not authorized, token failed')
     }
   }
 
   if (!token) {
-    res.status(404)
+    res.status(404).json({ message: 'Not authorized, no token' })
     throw new Error('Not authorized, no token')
   }
 }
