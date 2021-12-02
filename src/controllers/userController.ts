@@ -29,6 +29,9 @@ export const authUser = async (req: Request, res: Response) => {
 export const registerUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body
 
+  if (!name || !email || !password)
+    res.status(400).json({ message: 'Invalid user data' })
+
   const userExists = await User.findOne({ email })
 
   if (userExists) {
@@ -43,6 +46,7 @@ export const registerUser = async (req: Request, res: Response) => {
       _id: user._id,
       user: user.name,
       email: user.email,
+      token: generateToken(user._id),
     })
   } else {
     res.status(400).json({ message: 'Invalid user data' })

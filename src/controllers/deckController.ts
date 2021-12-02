@@ -49,3 +49,38 @@ export const getMyDecks = async (req: any, res: Response) => {
     throw new Error('Deck not found')
   }
 }
+
+// @desc Delete deck
+// @route DELETE /api/decks/:id
+// @access Private
+export const deleteDeck = async (req: any, res: Response) => {
+  const decks = await Deck.findById(req.params.id)
+
+  if (decks) {
+    await decks.remove()
+    res.status(200).json({ message: 'Deck removed successfully' })
+  } else {
+    res.status(404).json({ message: 'Deck not found' })
+    throw new Error('Deck not found')
+  }
+}
+
+// @desc Update deck
+// @route PUT /api/decks/:id
+// @access Private
+export const updateDeck = async (req: any, res: Response) => {
+  const { name, cards } = req.body
+
+  const decks = await Deck.findById(req.params.id)
+
+  if (decks) {
+    decks.name = name
+    decks.cards = cards
+    const updatedDeck = await decks.save()
+
+    res.status(200).json(updatedDeck)
+  } else {
+    res.status(404).json({ message: 'Deck not found' })
+    throw new Error('Deck not found')
+  }
+}
