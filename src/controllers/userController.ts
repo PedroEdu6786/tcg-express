@@ -16,6 +16,7 @@ export const authUser = async (req: Request, res: Response) => {
       user: user.name,
       email: user.email,
       token: generateToken(user._id),
+      isAdmin: user.isAdmin,
     })
   } else {
     res.status(401).json({ message: 'Invalid email or password' })
@@ -47,6 +48,7 @@ export const registerUser = async (req: Request, res: Response) => {
       user: user.name,
       email: user.email,
       token: generateToken(user._id),
+      isAdmin: user.isAdmin,
     })
   } else {
     res.status(400).json({ message: 'Invalid user data' })

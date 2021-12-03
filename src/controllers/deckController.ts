@@ -84,3 +84,12 @@ export const updateDeck = async (req: any, res: Response) => {
     throw new Error('Deck not found')
   }
 }
+
+// @desc Get all orders
+// @route GET /api/admin/decks
+// @access Private/Admin
+export const getAllDecks = async (req: any, res: Response) => {
+  const orders = await Deck.find({})
+
+  res.json(orders)
+}

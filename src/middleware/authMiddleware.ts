@@ -30,3 +30,19 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
     throw new Error('Not authorized, no token')
   }
 }
+
+export const admin = (req: any, res: any, next: NextFunction) => {
+  let isAdmin
+  if (req.user.isAdmin) {
+    isAdmin = true
+  } else {
+    isAdmin = false
+  }
+
+  if (req.user && isAdmin) {
+    next()
+  } else {
+    res.status(401)
+    throw new Error('Not authorized as an admin')
+  }
+}
