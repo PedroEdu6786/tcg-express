@@ -55,3 +55,34 @@ export const registerUser = async (req: Request, res: Response) => {
     throw new Error('Invalid user data')
   }
 }
+
+// @desc GET all users
+// @route POST /api/users
+// @access Private/Admin
+export const getUsers = async (req: any, res: any) => {
+  const users = await User.find({})
+
+  res.json(users)
+}
+
+// @desc Update user by id
+// @route PUT /api/users
+// @access Private/Admin
+export const updateUserAdmin = async (req: any, res: any) => {
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+    user.isAdmin = true;
+    const updatedUser = await user.save()
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+}
