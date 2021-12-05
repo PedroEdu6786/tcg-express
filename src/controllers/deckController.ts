@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { Deck } from '../models/deckModel'
-import { writeOnCsv } from '../utils/csvWriter'
 const fs = require('fs')
 
 // @desc Post add deck to user
