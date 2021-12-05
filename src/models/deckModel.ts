@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+
+// @desc Deck Mongoose Schema
 const deckSchema = new mongoose.Schema(
   {
     cards: { type: Array, required: true },

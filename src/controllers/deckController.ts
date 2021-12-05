@@ -87,18 +87,3 @@ export const updateDeck = async (req: any, res: Response) => {
   }
 }
 
-// @desc Get all orders
-// @route GET /api/admin/decks
-// @access Private/Admin
-export const getAllDecks = async (req: any, res: Response) => {
-  const orders: any = await Deck.find({}).select({
-    _id: 1,
-    name: 1,
-    userId: 1,
-  })
-
-  await writeOnCsv(orders)
-
-  let filePath = 'C:\\Users\\pedrc\Documents\src\school\web-api\tcg-express\decks.csv'
-  res.json({ filePath })
-}

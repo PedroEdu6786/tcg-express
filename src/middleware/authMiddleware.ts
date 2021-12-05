@@ -4,6 +4,10 @@ import { User } from '../models/userModel'
 
 const JWT_SECRET: string = process.env.JWT_SECRET!
 
+// @desc Middleware to protect routes if not authenticated
+// @param {Request} req - Request
+// @param {Response} req - Response
+// @param {NextFunction} next - Next function to continue
 export const protect = async (req: any, res: Response, next: NextFunction) => {
   let token
 
@@ -31,6 +35,11 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
   }
 }
 
+
+// @desc Middleware to protect routes if not authorized as admin
+// @param {Request} req - Request
+// @param {Response} req - Response
+// @param {NextFunction} next - Next function to continue
 export const admin = (req: any, res: any, next: NextFunction) => {
   let isAdmin
   if (req.user.isAdmin) {

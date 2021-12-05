@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 const bcrypt = require('bcryptjs')
 
+// @desc User Mongoose Schema
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -11,10 +12,12 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+// @desc Verify password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
 
+// @desc Save data
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next()
